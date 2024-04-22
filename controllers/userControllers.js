@@ -20,7 +20,7 @@ const renderLogin = async (req, res) => {
 };
 
 const renderProfile = async (req, res) => {
-  return res.render("profile", { title: "Welcome, " });
+  return res.render("profile", { title: "Welcome,", user: req.user });
 };
 
 export {

@@ -1,3 +1,21 @@
 <%- include('partials/header') %>
 
 <p>Create account to get started</p>
+
+<form class="flex flex-col gap-4 mx-auto w-96 py-4">
+  <label for="email" class="text-lg text-gray-500">Email address:</label>
+  <input
+    type="text"
+    id="email"
+    placeholder="johndoe@gmail.com"
+    class="outline-none p-2 border border-gray-500 rounded"
+  />
+  <label for="password" class="text-lg text-gray-500">Your password:</label>
+  <input
+    type="password"
+    id="password"
+    placeholder="1234doe"
+    class="outline-none p-2 border border-gray-500 rounded"
+  />
+  <button class="bg-orange-300 w-fit mx-auto p-2 rounded">Create Account</button>
+</form>

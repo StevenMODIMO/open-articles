@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
 import express from "express";
+import session from "express-session";
+import passport from "passport";
 import articleRoutes from "./routes/articleRoutes.js";
 import userRoutes from "./routes/authRoutes.js";
 import db from "./db/db.js";
 import passportConfig from "./config/passport-setup.js";
-import session from "express-session";
-import passport from "passport";
 
 // Initialize environment variables
 dotenv.config();
@@ -28,6 +28,7 @@ app.use(
     secret: process.env.COOKIE_KEY,
     resave: false,
     saveUninitialized: true,
+    cookie: { maxAge: 86400000  },
   })
 );
 
@@ -44,8 +45,8 @@ app.get("/", (req, res) => {
   return res.render("home", { title: "Open Articles" });
 });
 
-app.use("/articles", articleRoutes);
 app.use("/auth", userRoutes);
+app.use("/articles", articleRoutes);
 
 db.connectToDb(() => {
   console.log("Database connected successfully");

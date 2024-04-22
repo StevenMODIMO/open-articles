@@ -1,5 +1,6 @@
 import passport from "passport";
 import GoogleStrategy from "passport-google-oauth20";
+import TwitterStrategy from "passport-twitter";
 import db from "../db/db.js";
 import dotenv from "dotenv";
 import { ObjectId } from "mongodb";
@@ -16,7 +17,7 @@ db.connectToDb((error) => {
 
 // Serialize User
 passport.serializeUser((user, done) => {
-  done(null, { id: user._id, name: user.name, email: user.email });
+  done(null, user._id);
 });
 
 // Deserialize User
@@ -34,9 +35,9 @@ passport.deserializeUser((_id, done) => {
 passport.use(
   new GoogleStrategy(
     {
-      callbackURL: "/auth/google/redirect",
       clientID: process.env.GOOGLE_CLIENT,
       clientSecret: process.env.GOOGLE_SECRET,
+      callbackURL: "/auth/google/redirect",
     },
     (accessToken, refreshToken, profile, done) => {
       const user = {
@@ -46,14 +47,65 @@ passport.use(
         email: profile._json.email,
       };
 
-      dq.collection("users").insertOne(user, (err, result) => {
-        if (err) {
-          console.log("Error inserting user:", err);
-          done(err);
-        }
-        console.log("User inserted successfully:", result.ops[0]);
-        done(null, result.ops[0]);
-      });
+      dq.collection("users")
+        .findOne({ googleId: profile.id })
+        .then((currentUser) => {
+          if (currentUser) {
+            done(null, currentUser);
+          } else {
+            dq.collection("users")
+              .insertOne(user)
+              .then((result) => {
+                done(null, user);
+              })
+              .catch((error) => {
+                console.error("Failed to insert user:", error);
+                done(error, null);
+              });
+          }
+        })
+        .catch((error) => {
+          console.error("Database query error:", error);
+          done(error, null);
+        });
+    }
+  )
+);
+
+passport.use(
+  new TwitterStrategy(
+    {
+      consumerKey: process.env.TWITTER_CONSUMER_KEY,
+      consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
+      callbackURL: "/auth/twitter/redirect",
+    },
+    (token, tokenSecret, profile, done) => {
+      const user = {
+        username: profile.username,
+        twitterId: profile.id,
+        imageURL: profile._json.profile_image_url,
+      };
+      dq.collection("users")
+        .findOne({ twitterId: profile.id })
+        .then((currentUser) => {
+          if (currentUser) {
+            done(null, currentUser);
+          } else {
+            dq.collection("users")
+              .insertOne(user)
+              .then((result) => {
+                done(null, user);
+              })
+              .catch((error) => {
+                console.error("Failed to insert user:", error);
+                done(error, null);
+              });
+          }
+        })
+        .catch((error) => {
+          console.error("Database query error:", error);
+          done(error, null);
+        });
     }
   )
 );
