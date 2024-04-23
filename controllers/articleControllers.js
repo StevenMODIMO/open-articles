@@ -9,26 +9,28 @@ db.connectToDb((error) => {
   }
 });
 
-// Articles Controllers
-
-const getArticles = async (req, res) => {
-  const articles = await dq.collection("articles").find().toArray();
-  return res.status(200).json(articles);
+const renderCreatePage = async (req, res) => {
+  res.render("create", { title: "Create new Article", user: req.user });
 };
 
-const getSingleArticle = async (req, res) => {
+const renderSingleArticle = async (req, res) => {
   const { id } = req.params;
   const article = await dq
     .collection("articles")
     .findOne({ _id: new ObjectId(id) });
-  return res.status(200).json(article);
+  res.render("article", { title: "Reading", user: req.user, article });
 };
 
 const createArticle = async (req, res) => {
   const { headline, content } = req.body;
+  const user = req.user;
+  const author = {
+    name: user.username,
+    imageURL: user.imageURL,
+  };
   const new_article = await dq
     .collection("articles")
-    .insertOne({ headline, content });
+    .insertOne({ headline, content, author });
   return res.status(200).json(new_article);
 };
 
@@ -53,10 +55,8 @@ const deleteArticle = async (req, res) => {
 };
 
 export {
-
-  // articles functions
-  getArticles,
-  getSingleArticle,
+  renderCreatePage,
+  renderSingleArticle,
   createArticle,
   updateArticle,
   deleteArticle,

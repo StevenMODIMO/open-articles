@@ -9,23 +9,25 @@ db.connectToDb((error) => {
   }
 });
 
-// Page controllers
-
-const renderSignup = async (req, res) => {
-  return res.render("signup", { title: "Get Started" });
-};
-
-const renderLogin = async (req, res) => {
-  return res.render("login", { title: "Login to continue" });
-};
-
 const renderProfile = async (req, res) => {
-  return res.render("profile", { title: "Welcome,", user: req.user });
+  const username = req.user.username;
+  const userArticles = await dq
+    .collection("articles")
+    .find({ "author.name": username })
+    .toArray();
+  res.render("profile", {
+    title: `Welcome ${username}`,
+    user: req.user,
+    userArticles,
+  });
 };
 
-export {
-  // page functions
-  renderLogin,
-  renderSignup,
-  renderProfile,
+const renderUpdateArticle = async (req, res) => {
+  const { id } = req.params;
+  const article = await dq
+    .collection("articles")
+    .findOne({ _id: new ObjectId(id) });
+  res.render("update", { title: "Update Article", article, user: req.user });
 };
+
+export { renderProfile, renderUpdateArticle };

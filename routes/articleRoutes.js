@@ -1,8 +1,7 @@
 import express from "express";
 import {
-  // articles functions
-  getArticles,
-  getSingleArticle,
+  renderCreatePage,
+  renderSingleArticle,
   createArticle,
   updateArticle,
   deleteArticle,
@@ -10,17 +9,22 @@ import {
 
 const router = express.Router();
 
+const authCheck = (req, res, next) => {
+  if (!req.user) {
+    res.redirect("/auth/login");
+  } else {
+    next();
+  }
+};
 
-// Articles routes
+router.get("/:id", renderSingleArticle);
 
-router.get("/", getArticles);
+router.get("/new", authCheck, renderCreatePage);
 
-router.get("/:id", getSingleArticle);
+router.post("/new", authCheck, createArticle);
 
-router.post("/new", createArticle);
+router.patch("/:id", authCheck, updateArticle);
 
-router.patch("/:id", updateArticle);
-
-router.delete("/:id", deleteArticle);
+router.delete("/:id", authCheck, deleteArticle);
 
 export default router;

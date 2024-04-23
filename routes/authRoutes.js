@@ -1,9 +1,8 @@
-import express, { application } from "express";
+import express from "express";
 import {
   renderLogin,
   renderSignup,
-  renderProfile,
-} from "../controllers/userControllers.js";
+} from "../controllers/authControllers.js";
 import passport from "passport";
 
 const router = express.Router();
@@ -22,8 +21,6 @@ router.get("/signup", renderSignup);
 
 router.get("/login", renderLogin);
 
-router.get("/profile", authCheck, renderProfile);
-
 // Users controllers
 router.get("/twitter", passport.authenticate("twitter"));
 
@@ -36,12 +33,12 @@ router.get(
   "/twitter/redirect",
   passport.authenticate("twitter"),
   (req, res) => {
-    res.redirect("/auth/profile");
+    res.redirect("/profile");
   }
 );
 
 router.get("/google/redirect", passport.authenticate("google"), (req, res) => {
-  res.redirect("/auth/profile");
+  res.redirect("/profile");
 });
 
 router.get("/logout", (req, res) => {

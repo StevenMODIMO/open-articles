@@ -1,3 +1,21 @@
 <%- include('partials/header') %>
 
 <p>Home of awesome and free articles</p>
+
+<main class="mx-auto w-96">
+  <% articles.forEach(article => { %>
+    <a href="/articles/<%= article._id %>"> <p><%= article.headline %></p></a>
+  <p class="text-gray-500"><%= article.content %></p>
+  <div class="font-bold"><%= article._id %></div>
+  <div>
+    <p><%= article.author.name %></p>
+    <img
+      src="<%= article.author.imageURL %>"
+      alt="<%= article.author.name %>"
+      class="rounded-full"
+    />
+  </div>
+  <% }) %>
+</main>
+
+<%- include('partials/footer') %>

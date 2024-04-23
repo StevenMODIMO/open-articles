@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+<form action="/articles/new" class="w-96 mx-auto flex flex-col">
+  <label for="headline">Headline:</label>
+  <input
+    type="text"
+    id="headline"
+    name="headline"
+    class="p-2 border border-gray-500 rounded outline-none"
+  />
+
+  <label for="content">Content:</label>
+  <textarea
+    id="content"
+    name="content"
+    rows="6"
+    class="p-2 border border-gray-500 rounded outline-none"
+  ></textarea>
+
+  <input type="submit" value="Submit" />
+</form>
+<%- include('partials/footer') %>
