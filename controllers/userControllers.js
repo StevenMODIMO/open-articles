@@ -30,4 +30,8 @@ const renderUpdateArticle = async (req, res) => {
   res.render("update", { title: "Update Article", article, user: req.user });
 };
 
-export { renderProfile, renderUpdateArticle };
+const rendercreateArticle = (req, res) => {
+  res.render("create", { user: req.user, title: "New Article"})
+}
+
+export { renderProfile, renderUpdateArticle, rendercreateArticle };

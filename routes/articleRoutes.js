@@ -1,6 +1,5 @@
 import express from "express";
 import {
-  renderCreatePage,
   renderSingleArticle,
   createArticle,
   updateArticle,
@@ -18,8 +17,6 @@ const authCheck = (req, res, next) => {
 };
 
 router.get("/:id", renderSingleArticle);
-
-router.get("/new", authCheck, renderCreatePage);
 
 router.post("/new", authCheck, createArticle);
 

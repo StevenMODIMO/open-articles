@@ -42,8 +42,8 @@ passport.use(
     (accessToken, refreshToken, profile, done) => {
       const user = {
         googleId: profile.id,
-        name: profile.displayName,
-        picture: profile._json.picture,
+        username: profile.displayName,
+        imageURL: profile._json.picture,
         email: profile._json.email,
       };
 

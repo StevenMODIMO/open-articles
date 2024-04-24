@@ -29,4 +29,37 @@
   <input type="submit" value="Update" />
 </form>
 
+<script>
+  const updateForm = document.querySelector("#update-form");
+
+  updateForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Get update values
+    const headline = updateForm.headline.value;
+    const content = updateForm.content.value;
+    const id = updateForm.getAttribute("action").split("/").pop();
+
+    try {
+      const res = await fetch(`/articles/${id}`, {
+        method: "PATCH",
+        body: JSON.stringify({ headline, content }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      // Clear input fields
+      updateForm.headline.value = "";
+      updateForm.content.value = "";
+      location.assign("/");
+    } catch (error) {
+      console.log(error);
+    }
+  });
+</script>
+
 <%- include('partials/footer') %>

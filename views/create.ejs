@@ -1,5 +1,9 @@
 <%- include('partials/header') %>
-<form action="/articles/new" class="w-96 mx-auto flex flex-col">
+<form
+  action="/articles/new"
+  class="w-96 mx-auto flex flex-col"
+  id="create-form"
+>
   <label for="headline">Headline:</label>
   <input
     type="text"
@@ -18,4 +22,35 @@
 
   <input type="submit" value="Submit" />
 </form>
+<script>
+  const createForm = document.querySelector("#create-form");
+
+  createForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Get input values
+    const headline = createForm.headline.value;
+    const content = createForm.content.value;
+
+    try {
+      const res = await fetch("/articles/new", {
+        method: "POST",
+        body: JSON.stringify({ headline, content }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await res.json();
+      console.log(data);
+
+      // Clear input fields
+      createForm.headline.value = "";
+      createForm.content.value = "";
+      location.assign("/");
+    } catch (error) {
+      console.log(error);
+    }
+  });
+</script>
 <%- include('partials/footer') %>

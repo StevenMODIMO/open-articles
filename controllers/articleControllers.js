@@ -9,9 +9,6 @@ db.connectToDb((error) => {
   }
 });
 
-const renderCreatePage = async (req, res) => {
-  res.render("create", { title: "Create new Article", user: req.user });
-};
 
 const renderSingleArticle = async (req, res) => {
   const { id } = req.params;
@@ -55,7 +52,6 @@ const deleteArticle = async (req, res) => {
 };
 
 export {
-  renderCreatePage,
   renderSingleArticle,
   createArticle,
   updateArticle,

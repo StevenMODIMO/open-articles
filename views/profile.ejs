@@ -7,13 +7,41 @@
   alt="<%= user.username %>"
   class="rounded-full"
 />
-<p>TwitterID: <%= user.twitterId %></p>
 <p>MongoDB ID: <%= user._id %></p>
 <p class="font-bold text-5xl"><%= user.username %></p>
 
 <h1>My Articles</h1>
 <% userArticles.forEach(article => { %>
-<a href="/articles/<%= article._id %>"> <p><%= article.headline %></p></a>
+<a href="/articles/<%= article._id %>">
+  <p><%= article.headline %></p>
+</a>
 <img src="<%= article.author.imageURL %>" alt="<%= article.headline %>" />
-<a href="/profile/articles/update/<%= article._id %>">Edit Article</a>
+<a
+  href="/profile/articles/update/<%= article._id %>"
+  class="bg-green-500 p-1 rounded-full"
+  >Edit Article</a
+>
+<button class="delete" data-id="<%= article._id %>">Delete Article</button>
+
 <% }) %>
+
+<script>
+  const deleteButtons = document.querySelectorAll(".delete");
+
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", (event) => {
+      const id = event.target.getAttribute("data-id");
+      fetch(`/articles/${id}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.location.reload();
+          } else {
+            throw new Error("Delete request failed.");
+          }
+        })
+        .catch((error) => console.error(error));
+    });
+  });
+</script>

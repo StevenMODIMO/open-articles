@@ -2,6 +2,7 @@ import express from "express";
 import {
   renderProfile,
   renderUpdateArticle,
+  rendercreateArticle,
 } from "../controllers/userControllers.js";
 
 const router = express.Router();
@@ -18,6 +19,8 @@ const authCheck = (req, res, next) => {
 
 router.get("/", authCheck, renderProfile);
 
-router.get("/articles/update/:id", renderUpdateArticle)
+router.get("/articles/update/:id", authCheck, renderUpdateArticle);
+
+router.get("/articles/new", authCheck, rendercreateArticle);
 
 export default router;
