@@ -1,10 +1,13 @@
 import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 let dbConnection;
 
 let db = {
   connectToDb(cb) {
-    MongoClient.connect("mongodb://localhost:27017/oa")
+    MongoClient.connect(process.env.MONGO_URI)
       .then((client) => {
         dbConnection = client.db();
         return cb();

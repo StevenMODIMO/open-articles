@@ -4,11 +4,22 @@
   class="w-96 mx-auto flex flex-col"
   id="create-form"
 >
+  <i class="bi bi-image"></i>
+  <label for="cover">
+    <input type="file" id="cover" name="cover" class="hidden" />
+  </label>
   <label for="headline">Headline:</label>
   <input
     type="text"
     id="headline"
     name="headline"
+    class="p-2 border border-gray-500 rounded outline-none"
+  />
+  <label for="description">Description:</label>
+  <input
+    type="text"
+    id="description"
+    name="description"
     class="p-2 border border-gray-500 rounded outline-none"
   />
 
@@ -20,7 +31,7 @@
     class="p-2 border border-gray-500 rounded outline-none"
   ></textarea>
 
-  <input type="submit" value="Submit" />
+  <input type="submit" value="Submit" class="bg-green-500 p-2 text-green-800 rounded-full" />
 </form>
 <script>
   const createForm = document.querySelector("#create-form");
