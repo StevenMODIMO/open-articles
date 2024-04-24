@@ -50,18 +50,10 @@ app.use("/auth", authRoutes);
 app.use("/profile", userRoutes);
 app.use("/articles", articleRoutes);
 
-db.connectToDb(() => {
-  console.log("Database connected successfully");
-  app.listen(process.env.PORT, () =>
-    console.log(`http://localhost:${process.env.PORT}`)
-  );
-  dq = db.getDb();
-});
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
+// Routes
 app.get("/covers/:filename", (req, res) => {
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
   const coverPath = path.join(__dirname, "covers", req.params.filename);
   res.sendFile(coverPath);
 });
@@ -73,4 +65,17 @@ app.get("/", async (req, res) => {
     user: req.user,
     articles,
   });
+});
+
+// 404 Route
+app.use((req, res, next) => {
+  res.status(404).render('404', {title: "404: Page Not Found", user: req.user});
+});
+
+db.connectToDb(() => {
+  console.log("Database connected successfully");
+  app.listen(process.env.PORT, () =>
+    console.log(`http://localhost:${process.env.PORT}`)
+  );
+  dq = db.getDb();
 });
