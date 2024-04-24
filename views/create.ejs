@@ -31,7 +31,11 @@
     class="p-2 border border-gray-500 rounded outline-none"
   ></textarea>
 
-  <input type="submit" value="Submit" class="bg-green-500 p-2 text-green-800 rounded-full" />
+  <input
+    type="submit"
+    value="Submit"
+    class="bg-green-500 p-2 text-green-800 rounded-full"
+  />
 </form>
 <script>
   const createForm = document.querySelector("#create-form");
@@ -42,14 +46,19 @@
     // Get input values
     const headline = createForm.headline.value;
     const content = createForm.content.value;
+    const description = createForm.description.value;
+    const cover = createForm.cover.files[0];
+
+    const formData = new FormData();
+    formData.append("headline", headline);
+    formData.append("description", description);
+    formData.append("content", content);
+    formData.append("cover", cover);
 
     try {
       const res = await fetch("/articles/new", {
         method: "POST",
-        body: JSON.stringify({ headline, content }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+        body: formData,
       });
 
       const data = await res.json();
@@ -57,7 +66,9 @@
 
       // Clear input fields
       createForm.headline.value = "";
+      createForm.description.value = "";
       createForm.content.value = "";
+      createForm.cover.value = "";
       location.assign("/");
     } catch (error) {
       console.log(error);

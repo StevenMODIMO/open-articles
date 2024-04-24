@@ -1,5 +1,6 @@
 import db from "../db/db.js";
 import { ObjectId } from "mongodb";
+import path from "path";
 
 let dq;
 
@@ -8,7 +9,6 @@ db.connectToDb((error) => {
     dq = db.getDb();
   }
 });
-
 
 const renderSingleArticle = async (req, res) => {
   const { id } = req.params;
@@ -19,7 +19,8 @@ const renderSingleArticle = async (req, res) => {
 };
 
 const createArticle = async (req, res) => {
-  const { headline, content } = req.body;
+  const { headline, description, content } = req.body;
+  const coverPath = path.normalize(req.file.path).replace(/\\/g, "/");
   const user = req.user;
   const author = {
     name: user.username,
@@ -27,7 +28,7 @@ const createArticle = async (req, res) => {
   };
   const new_article = await dq
     .collection("articles")
-    .insertOne({ headline, content, author });
+    .insertOne({ headline, description, content, cover: coverPath, author });
   return res.status(200).json(new_article);
 };
 
@@ -51,9 +52,4 @@ const deleteArticle = async (req, res) => {
   return res.status(200).json(deleted);
 };
 
-export {
-  renderSingleArticle,
-  createArticle,
-  updateArticle,
-  deleteArticle,
-};
+export { renderSingleArticle, createArticle, updateArticle, deleteArticle };

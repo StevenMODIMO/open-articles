@@ -6,6 +6,19 @@ import {
   deleteArticle,
 } from "../controllers/articleControllers.js";
 
+import multer from "multer";
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "covers/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
+
 const router = express.Router();
 
 const authCheck = (req, res, next) => {
@@ -18,7 +31,7 @@ const authCheck = (req, res, next) => {
 
 router.get("/:id", renderSingleArticle);
 
-router.post("/new", authCheck, createArticle);
+router.post("/new", authCheck, upload.single("cover"), createArticle);
 
 router.patch("/:id", authCheck, updateArticle);
 

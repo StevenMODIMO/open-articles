@@ -7,6 +7,8 @@ import authRoutes from "./routes/authRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import db from "./db/db.js";
 import passportConfig from "./config/passport-setup.js";
+import path from "path";
+import { fileURLToPath } from 'url';
 
 // Initialize environment variables
 dotenv.config();
@@ -54,6 +56,14 @@ db.connectToDb(() => {
     console.log(`http://localhost:${process.env.PORT}`)
   );
   dq = db.getDb();
+});
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.get("/covers/:filename", (req, res) => {
+  const coverPath = path.join(__dirname, "covers", req.params.filename);
+  res.sendFile(coverPath);
 });
 
 app.get("/", async (req, res) => {

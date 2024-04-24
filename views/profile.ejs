@@ -15,7 +15,11 @@
 <a href="/articles/<%= article._id %>">
   <p><%= article.headline %></p>
 </a>
-<img src="<%= article.author.imageURL %>" alt="<%= article.headline %>" />
+<img
+  src="<%= article.cover %>"
+  alt="<%= article.headline %>"
+  class="rounded-full"
+/>
 <a
   href="/profile/articles/update/<%= article._id %>"
   class="bg-green-500 p-1 rounded-full"
