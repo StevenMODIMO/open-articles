@@ -12,7 +12,7 @@
 
 <h1>My Articles</h1>
 <% userArticles.forEach(article => { %>
-<a href="/articles/<%= article._id %>">
+<a href="<%= article._id %>">
   <p><%= article.headline %></p>
 </a>
 <img
@@ -35,7 +35,7 @@
   deleteButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
       const id = event.target.getAttribute("data-id");
-      fetch(`/articles/${id}`, {
+      fetch(`/${id}`, {
         method: "DELETE",
       })
         .then((response) => {

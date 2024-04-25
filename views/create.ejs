@@ -56,7 +56,7 @@
     formData.append("cover", cover);
 
     try {
-      const res = await fetch("/articles/new", {
+      const res = await fetch("/new", {
         method: "POST",
         body: formData,
       });

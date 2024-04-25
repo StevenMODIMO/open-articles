@@ -8,7 +8,7 @@ import userRoutes from "./routes/userRoutes.js";
 import db from "./db/db.js";
 import passportConfig from "./config/passport-setup.js";
 import path from "path";
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from "url";
 
 // Initialize environment variables
 dotenv.config();
@@ -48,7 +48,7 @@ let dq;
 
 app.use("/auth", authRoutes);
 app.use("/profile", userRoutes);
-app.use("/articles", articleRoutes);
+app.use("/", articleRoutes);
 
 // Routes
 app.get("/covers/:filename", (req, res) => {
@@ -69,7 +69,9 @@ app.get("/", async (req, res) => {
 
 // 404 Route
 app.use((req, res, next) => {
-  res.status(404).render('404', {title: "404: Page Not Found", user: req.user});
+  res
+    .status(404)
+    .render("404", { title: "404: Page Not Found", user: req.user });
 });
 
 db.connectToDb(() => {

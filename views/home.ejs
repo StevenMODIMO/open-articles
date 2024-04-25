@@ -4,14 +4,19 @@
 
 <main class="mx-auto w-96">
   <% articles.forEach(article => { %>
-    <a href="/articles/<%= article._id %>"> <p><%= article.headline %></p></a>
+  <a href="<%= article._id %>"> <p><%= article.headline %></p></a>
   <p class="text-gray-500"><%= article.content %></p>
   <div class="font-bold"><%= article._id %></div>
+  <img
+    src="<%= article.cover %>"
+    alt="<%= article.headline %>"
+    class="rounded-full"
+  />
   <div>
     <p><%= article.author.name %></p>
     <img
-      src="<%= article.cover %>"
-      alt="<%= article.headline %>"
+      src="<%= article.author.imageURL %>"
+      alt="<%= article.author.name %>"
       class="rounded-full"
     />
   </div>
