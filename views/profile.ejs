@@ -35,7 +35,7 @@
   deleteButtons.forEach((button) => {
     button.addEventListener("click", (event) => {
       const id = event.target.getAttribute("data-id");
-      fetch(`/${id}`, {
+      fetch(`/articles/${id}`, {
         method: "DELETE",
       })
         .then((response) => {

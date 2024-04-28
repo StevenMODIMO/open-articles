@@ -41,7 +41,7 @@
     const id = updateForm.getAttribute("action").split("/").pop();
 
     try {
-      const res = await fetch(`/${id}`, {
+      const res = await fetch(`/articles/${id}`, {
         method: "PATCH",
         body: JSON.stringify({ headline, content }),
         headers: {

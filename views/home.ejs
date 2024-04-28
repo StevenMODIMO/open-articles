@@ -2,25 +2,6 @@
 
 <p>Home of awesome and free articles</p>
 
-<main class="mx-auto w-96">
-  <% articles.forEach(article => { %>
-  <a href="<%= article._id %>"> <p><%= article.headline %></p></a>
-  <p class="text-gray-500"><%= article.content %></p>
-  <div class="font-bold"><%= article._id %></div>
-  <img
-    src="<%= article.cover %>"
-    alt="<%= article.headline %>"
-    class="rounded-full"
-  />
-  <div>
-    <p><%= article.author.name %></p>
-    <img
-      src="<%= article.author.imageURL %>"
-      alt="<%= article.author.name %>"
-      class="rounded-full"
-    />
-  </div>
-  <% }) %>
-</main>
+<a href="/articles" class="bg-yellow-600 rounded-full p-1">View Articles</a>
 
 <%- include('partials/footer') %>

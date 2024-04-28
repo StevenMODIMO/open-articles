@@ -9,6 +9,7 @@ import db from "./db/db.js";
 import passportConfig from "./config/passport-setup.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { ObjectId } from "mongodb";
 
 // Initialize environment variables
 dotenv.config();
@@ -48,7 +49,7 @@ let dq;
 
 app.use("/auth", authRoutes);
 app.use("/profile", userRoutes);
-app.use("/", articleRoutes);
+app.use("/articles", articleRoutes);
 
 // Routes
 app.get("/covers/:filename", (req, res) => {
@@ -59,12 +60,15 @@ app.get("/covers/:filename", (req, res) => {
 });
 
 app.get("/", async (req, res) => {
-  const articles = await dq.collection("articles").find().toArray();
-  return res.render("home", {
-    title: "Open Articles",
-    user: req.user,
-    articles,
-  });
+  res.render("home", { title: "Awesome Articles", user: req.user });
+});
+
+app.get("/test/:id", async (req, res) => {
+  const { id } = req.params;
+  const article = await dq
+    .collection("articles")
+    .findOne({ _id: new ObjectId(id) });
+  res.status(200).json(article);
 });
 
 // 404 Route

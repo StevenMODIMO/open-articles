@@ -1,9 +1,10 @@
 import express from "express";
 import {
+  renderArticles,
+  renderSingleArticle,
   createArticle,
   updateArticle,
   deleteArticle,
-  renderArticle,
 } from "../controllers/articleControllers.js";
 
 import multer from "multer";
@@ -29,7 +30,9 @@ const authCheck = (req, res, next) => {
   }
 };
 
-router.get("/:id", renderArticle);
+router.get("/", renderArticles);
+
+router.get("/:id", renderSingleArticle);
 
 router.post("/new", authCheck, upload.single("cover"), createArticle);
 
