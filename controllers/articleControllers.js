@@ -10,14 +10,6 @@ db.connectToDb((error) => {
   }
 });
 
-const renderSingleArticle = async (req, res) => {
-  const { id } = req.params;
-  const article = await dq
-    .collection("articles")
-    .findOne({ _id: new ObjectId(id) });
-  res.render("article", { title: "Reading", user: req.user, article });
-};
-
 const createArticle = async (req, res) => {
   const { headline, description, content } = req.body;
   const coverPath = path.normalize(req.file.path).replace(/\\/g, "/");
@@ -52,4 +44,17 @@ const deleteArticle = async (req, res) => {
   return res.status(200).json(deleted);
 };
 
-export { renderSingleArticle, createArticle, updateArticle, deleteArticle };
+const renderArticle = async (req, res) => {
+  if (ObjectId.isValid(req.params.id)) {
+    const article = await dq
+      .collection("articles")
+      .findOne({ _id: req.params.id });
+    //res.render("article", { user: req.user, title: "Article", article });
+    return res.status(200).json(article)
+  } else {
+
+    console.log("could not fetch")
+  }
+};
+
+export { createArticle, updateArticle, deleteArticle, renderArticle };

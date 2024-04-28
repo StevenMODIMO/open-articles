@@ -1,9 +1,10 @@
 <%- include('partials/header') %>
 
-<p>Article</p>
-
 <main>
-  <img src="<%= article.cover %>" alt="<%= article.headline %>">
-  <p><%= article.headline %></p>
-  <p><%= article.content %></p>
+  <% article.forEach(a => { %>
+  <p><%= a.headline %></p>
+  <p><%= a.description %></p>
+  <p><%= a.content %></p>
+  <img src="<%= a.cover %>" alt="<%= a.headline %>" />
+  <% }) %>
 </main>

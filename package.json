@@ -19,7 +19,7 @@
     "multer": "^1.4.5-lts.1",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
-    "passport-twitter": "^1.0.4"
+    "passport-twitter": "^0.1.5"
   },
   "type": "module",
   "devDependencies": {
