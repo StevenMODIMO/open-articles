@@ -3,7 +3,11 @@ module.exports = {
   content: ["./views/**/*.ejs"],
   mode: "",
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sand: ['Quicksand']
+      }
+    },
   },
   plugins: [],
 };
