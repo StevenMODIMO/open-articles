@@ -6,14 +6,14 @@
   <label for="email" class="text-lg text-gray-500">Email address:</label>
   <input
     type="text"
-    id="email"
+    name="email"
     placeholder="johndoe@gmail.com"
     class="outline-none p-2 border border-gray-500 rounded"
   />
   <label for="password" class="text-lg text-gray-500">Your password:</label>
   <input
     type="password"
-    id="password"
+    name="password"
     placeholder="1234doe"
     class="outline-none p-2 border border-gray-500 rounded"
   />
@@ -27,3 +27,37 @@
 <section class="bg-red-500 p-2 w-fit my-6 rounded text-white mx-auto">
   <a href="/auth/google" class="text-lg">Continue with Google+</a>
 </section>
+
+<script>
+  const form = document.querySelector("form");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = form.email.value;
+    const password = form.password.value;
+
+    try {
+      const res = await fetch("/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      console.log(data);
+
+      if (data.user) {
+        location.assign("/");
+      }
+      form.email.value = "";
+      form.password.value = "";
+      form.email.value = "";
+      form.password.value = "";
+    } catch (error) {
+      console.log(error);
+    }
+  });
+</script>

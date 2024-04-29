@@ -2,6 +2,8 @@ import express from "express";
 import {
   renderLogin,
   renderSignup,
+  signup_post,
+  login_post
 } from "../controllers/authControllers.js";
 import passport from "passport";
 
@@ -46,5 +48,9 @@ router.get("/logout", (req, res) => {
     res.redirect("/");
   });
 });
+
+router.post("/signup", signup_post)
+
+router.post("/login", login_post)
 
 export default router;

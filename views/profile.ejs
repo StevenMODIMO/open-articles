@@ -12,7 +12,7 @@
 
 <h1>My Articles</h1>
 <% userArticles.forEach(article => { %>
-<a href="<%= article._id %>">
+<a href="/articles/<%= article._id %>">
   <p><%= article.headline %></p>
 </a>
 <img

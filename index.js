@@ -10,6 +10,7 @@ import passportConfig from "./config/passport-setup.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import { ObjectId } from "mongodb";
+import cookieParser from "cookie-parser"
 
 // Initialize environment variables
 dotenv.config();
@@ -17,14 +18,11 @@ dotenv.config();
 // Initialize app
 const app = express();
 
-// Server static assets
+// Middlewares
 app.use(express.static("public"));
-
-// Parse json object
 app.use(express.json());
-
-// Set template engine
 app.set("view engine", "ejs");
+app.use(cookieParser())
 
 // Initialize session
 app.use(
@@ -61,14 +59,6 @@ app.get("/covers/:filename", (req, res) => {
 
 app.get("/", async (req, res) => {
   res.render("home", { title: "Awesome Articles", user: req.user });
-});
-
-app.get("/test/:id", async (req, res) => {
-  const { id } = req.params;
-  const article = await dq
-    .collection("articles")
-    .findOne({ _id: new ObjectId(id) });
-  res.status(200).json(article);
 });
 
 // 404 Route
