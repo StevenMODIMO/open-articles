@@ -1,8 +1,6 @@
 <%- include('partials/header') %>
 
-<p class="text-center text-4xl">Login to Continue</p>
-
-<form class="flex flex-col gap-4 mx-auto w-96 py-4">
+<!-- <form class="flex flex-col gap-4 mx-auto w-96 py-4">
   <label for="email" class="text-lg text-gray-500">Email address:</label>
   <input
     type="text"
@@ -18,14 +16,21 @@
     class="outline-none p-2 border border-gray-500 rounded"
   />
   <button class="bg-orange-300 w-fit mx-auto p-2 rounded">Log In</button>
-</form>
+</form> -->
 
-<section class="bg-blue-400 p-2 w-fit my-6 rounded text-white mx-auto">
-  <a href="/auth/twitter" class="text-lg">Continue with Twitter</a>
-</section>
+<section class="mt-24">
+  <p class="text-center text-4xl text-gray-500 font-sand">Login to Continue</p>
+  <main class="mx-auto flex gap-2 p-4 w-fit">
+    <section class="font-sand w-fit my-6 rounded">
+      <a href="/auth/twitter" class="text-3xl font-sand"
+        ><i class="bi bi-twitter-x"></i
+      ></a>
+    </section>
 
-<section class="bg-red-500 p-2 w-fit my-6 rounded text-white mx-auto">
-  <a href="/auth/google" class="text-lg">Continue with Google+</a>
+    <section class="font-sand w-fit my-6 rounded">
+      <a href="/auth/google" class="text-3xl font-sand"> <i class="bi bi-google"></i></a>
+    </section>
+  </main>
 </section>
 
 <script>
@@ -61,3 +66,5 @@
     }
   });
 </script>
+
+<%- include('partials/footer') %>
