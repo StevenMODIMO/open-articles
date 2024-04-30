@@ -1,19 +1,24 @@
 <%- include('partials/header') %>
 
-<p>Now Editing blog with id: <%= article._id %></p>
+<p class="text-2xl text-center font-bold font-sand text-gray-500 p-12">Now Editing blog with id: <%= article._id %></p>
 
 <form
   action="/articles/<%= article._id %>"
-  class="w-96 mx-auto flex flex-col"
+  class="w-fit mx-auto flex flex-col shadow rounded p-6"
   id="update-form"
 >
-  <label for="headline">Headline:</label>
+  <h1 class="text-center font-sand text-2xl text-gray-500 p-3">
+    Update Article
+  </h1>
+  <label for="headline" class="text-gray-500 font-sand text-lg"
+    >Headline:</label
+  >
   <input
     type="text"
     id="headline"
     name="headline"
     value="<%= article.headline%>"
-    class="p-2 border border-gray-500 rounded outline-none"
+    class="p-2 border-2 border-gray-500 rounded w-96 text-gray-600 text-lg outline-none"
   />
 
   <label for="content">Content:</label>
@@ -21,12 +26,16 @@
     id="content"
     name="content"
     rows="6"
-    class="p-2 border border-gray-500 rounded outline-none"
+    class="p-2 border-2 border-gray-500 rounded w-96 text-gray-600 text-lg outline-none"
   >
 <%= article.content %></textarea
   >
 
-  <input type="submit" value="Update" />
+  <input
+    type="submit"
+    value="Update"
+    class="bg-orange-500 text-white p-2 mx-auto m-1 rounded-lg"
+  />
 </form>
 
 <script>

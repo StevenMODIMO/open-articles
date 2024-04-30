@@ -1,41 +1,48 @@
 <%- include('partials/header') %>
 <form
   action="/articles/new"
-  class="w-96 mx-auto flex flex-col"
+  class="w-fit mx-auto flex flex-col shadow rounded p-6"
   id="create-form"
 >
-  
-  <label for="cover">
+  <h1 class="text-center font-sand text-2xl text-gray-500 p-3">
+    Create new Article
+  </h1>
+  <label for="cover" class="font-sand text-gray-500 text-lg">
+    Add cover image
     <i class="bi bi-image"></i>
-    <input type="file" id="cover" name="cover" />
+    <input type="file" id="cover" name="cover" class="hidden" />
   </label>
-  <label for="headline">Headline:</label>
+  <label for="headline" class="text-gray-500 font-sand text-lg"
+    >Headline:</label
+  >
   <input
     type="text"
     id="headline"
     name="headline"
-    class="p-2 border border-gray-500 rounded outline-none"
+    class="p-2 border-2 border-gray-500 rounded w-96 text-gray-600 text-lg outline-none"
   />
-  <label for="description">Description:</label>
+  <label for="description" class="text-gray-500 font-sand text-lg"
+    >Description:</label
+  >
   <input
     type="text"
     id="description"
     name="description"
-    class="p-2 border border-gray-500 rounded outline-none"
+    class="p-2 border-2 border-gray-500 rounded w-96 text-gray-600 text-lg outline-none"
   />
 
-  <label for="content">Content:</label>
+  <label for="content" class="text-gray-500 font-sand text-lg">Content:</label>
   <textarea
     id="content"
     name="content"
     rows="6"
-    class="p-2 border border-gray-500 rounded outline-none"
+    class="p-2 border-2 border-gray-500 rounded w-96 text-gray-600 text-lg outline-none"
   ></textarea>
 
   <input
     type="submit"
     value="Submit"
-    class="bg-green-500 p-2 text-green-800 rounded-full"
+    class="bg-orange-500 text-white p-2 mx-auto m-1 rounded-lg"
   />
 </form>
 <script>

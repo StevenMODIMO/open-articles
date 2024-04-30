@@ -1,33 +1,43 @@
 <%- include('partials/header'); %>
 
-<p class="font-bold p-4 text-5xl">Founders</p>
-<p>About Open Articles</p>
-<img
-  src="<%= user.imageURL %>"
-  alt="<%= user.username %>"
-  class="rounded-full"
-/>
-<p>MongoDB ID: <%= user._id %></p>
-<p class="font-bold text-5xl"><%= user.username %></p>
+<main class="mx-auto w-fit flex flex-col items-center">
+  <img
+    src="<%= user.imageURL %>"
+    alt="<%= user.username %>"
+    class="rounded-full w-20"
+  />
+  <p class="font-bold font-sand text-gray-500 text-3xl"><%= user.username %></p>
+  <p class="text-gray-400 font-sand text-sm">ID:<%= user._id %></p>
+  <p class="text-gray-500 font-sand text-xs">
+    Articles: <%= userArticles.length%>
+  </p>
+</main>
 
-<h1>My Articles</h1>
-<% userArticles.forEach(article => { %>
-<a href="/articles/<%= article._id %>">
-  <p><%= article.headline %></p>
-</a>
-<img
-  src="<%= article.cover %>"
-  alt="<%= article.headline %>"
-  class="rounded-full"
-/>
-<a
-  href="/profile/articles/update/<%= article._id %>"
-  class="bg-green-500 p-1 rounded-full"
-  >Edit Article</a
->
-<button class="delete" data-id="<%= article._id %>">Delete Article</button>
+<section>
+  <h1 class="text-gray-500 font-sand font-bold text-3xl p-6">My Articles</h1>
+  <main class="grid grid-cols-4 gap-6 mt-12 p-8">
+    <% userArticles.forEach(article => { %>
+    <div class="shadow p-2 rounded h-fit">
+      <a href="/articles/<%= article._id %>">
+        <img
+          src="<%= article.cover %>"
+          alt="<%= article.headline %>"
+          class="rounded-full w-32"
+        />
+        <p class="font-sand text-gray-500 text-3xl font-bold"><%= article.headline %></p>
+        <p class="text-gray-400"><%= article.description %></p>
+      </a>
+      <a href="/profile/articles/update/<%= article._id %>" class="p-4">
+        <i class="bi bi-pen"></i>
+      </a>
+      <button data-id="<%= article._id %>" class="p-4">
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
 
-<% }) %>
+    <% }) %>
+  </main>
+</section>
 
 <script>
   const deleteButtons = document.querySelectorAll(".delete");
