@@ -39,7 +39,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: `https://open-articles.onrender.com/auth/google/redirect/`,
+      callbackURL: `https://open-articles.onrender.com/auth/google/redirect`,
     },
     (accessToken, refreshToken, profile, done) => {
       const user = {
