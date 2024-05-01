@@ -42,9 +42,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: process.env.NODE_ENV === "production"
-      ? "https://open-articles.onrender.com/auth/google/redirect"
-      : "http://localhost:3000",
+      callbackURL: `${baseUrl}/auth/google/redirect`,
     },
     (accessToken, refreshToken, profile, done) => {
       const user = {
