@@ -15,9 +15,6 @@ db.connectToDb((error) => {
   }
 });
 
-const baseUrl =
-  process.env.NODE_ENV === "production" && "https://open-articles.onrender.com";
-
 // Serialize User
 passport.serializeUser((user, done) => {
   done(null, user._id);
@@ -35,14 +32,15 @@ passport.deserializeUser((_id, done) => {
     });
 });
 
-const googleCallback = `${baseUrl}/auth/google/redirect`;
-
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: googleCallback,
+      callbackURL:
+        process.env.NODE_ENV === "production"
+          ? "https://open-articles.onrender.com/auth/google/redirect"
+          : "/auth/google/redirect",
     },
     (accessToken, refreshToken, profile, done) => {
       const user = {
