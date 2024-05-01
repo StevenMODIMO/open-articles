@@ -37,14 +37,12 @@ passport.deserializeUser((_id, done) => {
     });
 });
 
-const googleCallback = `${baseUrl}/auth/google/redirect`;
-
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: googleCallback,
+      callbackURL: `${baseUrl}/auth/google/redirect`,
     },
     (accessToken, refreshToken, profile, done) => {
       const user = {
