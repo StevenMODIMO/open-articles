@@ -12,8 +12,13 @@ let dq;
 db.connectToDb((error) => {
   if (!error) {
     dq = db.getDb();
-  } 
+  }
 });
+
+const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://open-articles.onrender.com"
+    : "http://localhost:3000";
 
 // Serialize User
 passport.serializeUser((user, done) => {
@@ -32,12 +37,14 @@ passport.deserializeUser((_id, done) => {
     });
 });
 
+const googleCallback = `${baseUrl}/auth/google/redirect`;
+
 passport.use(
   new GoogleStrategy(
     {
       clientID: process.env.GOOGLE_CLIENT,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: "/auth/google/redirect",
+      callbackURL: googleCallback,
     },
     (accessToken, refreshToken, profile, done) => {
       const user = {
