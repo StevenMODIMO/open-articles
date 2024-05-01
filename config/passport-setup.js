@@ -15,11 +15,6 @@ db.connectToDb((error) => {
   }
 });
 
-const baseUrl =
-  process.env.NODE_ENV === "production"
-    ? "https://open-articles.onrender.com"
-    : "http://localhost:3000";
-
 // Serialize User
 passport.serializeUser((user, done) => {
   done(null, user._id);
@@ -42,7 +37,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT,
       clientSecret: process.env.GOOGLE_SECRET,
-      callbackURL: `${baseUrl}/auth/google/redirect`,
+      callbackURL: "https://open-articles.onrender.com/auth/google/redirect/",
     },
     (accessToken, refreshToken, profile, done) => {
       const user = {
