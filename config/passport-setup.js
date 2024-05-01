@@ -18,7 +18,7 @@ db.connectToDb((error) => {
 const baseUrl =
   process.env.NODE_ENV === "production"
     ? "https://open-articles.onrender.com"
-    : "http://localhost:3000";
+    : "https://open-articles.onrender.com";
 
 // Serialize User
 passport.serializeUser((user, done) => {
